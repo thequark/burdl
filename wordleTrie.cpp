@@ -171,9 +171,21 @@ int main(int argc, char**argv) {
     int index;
 
     Rules r = Rules();
-    while ((c = getopt (argc, argv, "p:g:y:")) != -1) {
+
+    string helpText("wordleTrie -p WORD -g LETTERS -y WORD -h\n"
+                    "All options can be repeatedly given value.\n"
+                    "WORD should contain a word with lower case alphabets or dash(-).\n"
+                    "LETTERS should be a word with lower case alphabets\n"
+                    "  -p Each letter in WORD is fixed at that position. - indicates any alphabet. - is assumed as suffix if WORD has less letters than allowed words\n"
+                    "  -g Each letter in WORD should not be included in generated word\n"
+                    "  -y Each letter in WORD should be present in generated word but not at its position specified in WORD. - implies this rule is not applied on the given position \n"
+                   );
+    while ((c = getopt (argc, argv, "p:g:y:h")) != -1) {
         switch (c)
         {
+            case 'h':
+            cout << helpText << endl;
+            return 0;
             case 'p':
             r.addGreenRule(optarg);
             break;
